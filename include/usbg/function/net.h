@@ -29,7 +29,11 @@ struct usbg_f_net_attrs {
 	struct ether_addr host_addr;
 	const char *ifname;
 	int qmult;
+#ifdef __cplusplus
+	unsigned int fclass;
+#else
 	unsigned int class;
+#endif
 	unsigned int subclass;
 	unsigned int protocol;
 };
@@ -51,7 +55,7 @@ union usbg_f_net_attr_val {
 	struct ether_addr host_addr;
 	const char *ifname;
 	int qmult;
-	unsigned int class;
+	unsigned int fclass;
 	unsigned int subclass;
 	unsigned int protocol;
 };
@@ -236,10 +240,10 @@ static inline int usbg_f_net_set_qmult(usbg_f_net *nf, int qmult)
  * @param[out] class Current class identification
  * @return 0 on success usbg_error if error occurred.
  */
-static inline int usbg_f_net_get_class(usbg_f_net *nf, unsigned int *class)
+static inline int usbg_f_net_get_class(usbg_f_net *nf, unsigned int *fclass)
 {
 	return usbg_f_net_get_attr_val(nf, USBG_F_NET_CLASS,
-				       (union usbg_f_net_attr_val *)class);
+				       (union usbg_f_net_attr_val *)fclass);
 }
 
 /**
@@ -248,10 +252,10 @@ static inline int usbg_f_net_get_class(usbg_f_net *nf, unsigned int *class)
  * @param[in] class Class identification
  * @return 0 on success usbg_error if error occurred.
  */
-static inline int usbg_f_net_set_class(usbg_f_net *nf, unsigned int class)
+static inline int usbg_f_net_set_class(usbg_f_net *nf, unsigned int fclass)
 {
 	return usbg_f_net_set_attr_val(nf, USBG_F_NET_CLASS,
-				       USBG_F_NET_INT_TO_ATTR_VAL(class));
+				       USBG_F_NET_INT_TO_ATTR_VAL(fclass));
 }
 
 /**
